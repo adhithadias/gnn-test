@@ -2,8 +2,8 @@ import torch
 from torch_geometric.data import Data
 from torch_geometric.datasets import TUDataset
 from torch_geometric.datasets import Planetoid
-from utils import print_graph_specs, print_data_set
-from net import Net
+from utils import print_graph_specs, print_data_set, train_for_dataset, train_one_graph
+from net import Net, GNNStackGraph
 import torch.nn.functional as F
 
 
@@ -33,11 +33,20 @@ if __name__ == '__main__':
     dataset = Planetoid(root='/tmp/Cora', name='Cora')
     print_data_set(dataset)
 
+    dataset = Planetoid(root='/tmp/Citeseer', name='Citeseer')
+    print_data_set(dataset)
+
     print("\n================== TRAIN ========================")
     device = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
     model = Net(dataset.num_node_features, dataset.num_classes).to(device)
 
+    data_size = len(dataset)
+    # loader = DataLoader(dataset., batch_size=32, shuffle=True)
+    # loader = DataLoader(dataset[:int(data_size * 0.8)], batch_size=64, shuffle=True)
+    # test_loader = DataLoader(dataset[int(data_size * 0.8):], batch_size=64, shuffle=True)
+
     data = dataset[0].to(device)
+    print_graph_specs(data)
 
     optimizer = torch.optim.Adam(model.parameters(), lr=0.01, weight_decay=5e-4)
 
@@ -55,5 +64,15 @@ if __name__ == '__main__':
     correct = int(pred[data.test_mask].eq(data.y[data.test_mask]).sum().item())
     acc = correct / int(data.test_mask.sum())
     print('Accuracy: {:.4f}'.format(acc))
+
+    # /* ----------------------------------- */
+
+    dataset = TUDataset(root='/tmp/ENZYMES', name='ENZYMES')
+    train_for_dataset(dataset)
+
+    dataset = Planetoid(root='/tmp/cora', name='cora')
+    train_one_graph(dataset)
+
+
 
 

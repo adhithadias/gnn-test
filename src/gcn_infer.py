@@ -18,7 +18,12 @@ model = GCNNet(1433, 7).to(device)
 model.eval()
 file = 'gcn.pt'
 model_path = osp.join(osp.dirname(osp.realpath(__file__)), '..', 'model', file)
-model.load_state_dict(torch.load(model_path))
+# model.load_state_dict(torch.jit.load(model_path))
+
+model = torch.jit.load(model_path)
+
+print("\n\n------ MODEL GRAPH--------")
+print(model.graph)
 
 print(model)
 

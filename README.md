@@ -14,3 +14,23 @@ source /path/to/virtual/environment/bin/activate
 # inside the virtual environment execute the below command to install the required packages
 python -m pip install -r requirements.txt
 ```
+
+Install the relevant pytorch-geometric libraries
+```bash
+python -c "import torch; print(torch.__version__)"
+python -c "import torch; print(torch.version.cuda)"
+
+pip install torch==1.7.0
+pip install scipy==1.6.0
+pip install --no-index torch-scatter -f https://pytorch-geometric.com/whl/torch-${TORCH}+${CUDA}.html
+pip install --no-index torch-sparse -f https://pytorch-geometric.com/whl/torch-${TORCH}+${CUDA}.html
+pip install --no-index torch-cluster -f https://pytorch-geometric.com/whl/torch-${TORCH}+${CUDA}.html
+pip install --no-index torch-spline-conv -f https://pytorch-geometric.com/whl/torch-${TORCH}+${CUDA}.html
+pip install torch-geometric
+
+pip install --no-index torch-scatter -f https://pytorch-geometric.com/whl/torch-1.7.0+cu102.html
+pip install --no-index torch-sparse -f https://pytorch-geometric.com/whl/torch-1.7.0+cu102.html
+pip install --no-index torch-cluster -f https://pytorch-geometric.com/whl/torch-1.7.0+cu102.html
+pip install --no-index torch-spline-conv -f https://pytorch-geometric.com/whl/torch-1.7.0+cu102.html
+pip install torch-geometric
+```

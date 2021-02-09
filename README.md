@@ -34,3 +34,18 @@ pip install --no-index torch-cluster -f https://pytorch-geometric.com/whl/torch-
 pip install --no-index torch-spline-conv -f https://pytorch-geometric.com/whl/torch-1.7.0+cu102.html
 pip install torch-geometric
 ```
+
+## load model in C++
+
+```bash
+mkdir build
+cd build
+
+# download libtorch c++ from https://pytorch.org/ and unzip
+cmake -DCMAKE_PREFIX_PATH=/path/to/libtorch ..
+cmake --build . --config Release
+```
+
+References
+1. https://github.com/rusty1s/pytorch_geometric/tree/master/examples/jit
+2. https://pytorch.org/tutorials/advanced/cpp_export.html
